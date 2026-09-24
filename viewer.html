@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Specifications Viewer</title>
-    <script src="https://tailwindcss.com"></script>
-    <!-- Marked Markdown Compiler Library -->
-    <script src="https://jsdelivr.net"></script>
+    <!-- Standalone Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Universal Marked.js Markdown Parser Compiler -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
     <script>
+        // Safely configure Tailwind custom design tokens once script is fully available
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         claude: {
-                            bg: '#fbfaf7',
-                            dark: '#191919',
-                            muted: '#666666',
-                            border: '#e6e4de',
-                            accent: '#cc6633'
+                            bg: '#fbfaf7',      /* Warm Anthropic ivory */
+                            dark: '#191919',    /* Deep ink black */
+                            muted: '#666666',   /* Medium reading gray */
+                            border: '#e6e4de',  /* Subtle clay dividing line */
+                            accent: '#cc6633'   /* Strategic architectural pop */
                         }
                     },
                     fontFamily: {
@@ -29,14 +31,15 @@
         }
     </script>
     <style>
-        @import url('https://googleapis.com');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #fbfaf7; color: #191919; }
+        
         /* Style markdown tables clean and minimal */
         .markdown-body table { width: 100%; margin-bottom: 2rem; border-collapse: collapse; text-align: left; font-size: 0.875rem; }
         .markdown-body th { padding: 0.75rem; border-bottom: 2px solid #e6e4de; font-family: 'Courier New', monospace; font-size: 0.75rem; color: #666666; text-transform: uppercase; }
         .markdown-body td { padding: 0.75rem; border-bottom: 1px solid #e6e4de; font-weight: 300; }
         .markdown-body h1 { font-size: 2.25rem; font-weight: 300; margin-bottom: 1.5rem; letter-spacing: -0.025em; color: #191919; }
-        .markdown-body h2 { font-size: 1.5rem; font-weight: 400; margin-top: 2rem; margin-bottom: 1rem; border-b: 1px solid #e6e4de; padding-bottom: 0.5rem; }
+        .markdown-body h2 { font-size: 1.5rem; font-weight: 400; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid #e6e4de; padding-bottom: 0.5rem; }
         .markdown-body h3 { font-size: 1.125rem; font-weight: 500; margin-top: 1.5rem; margin-bottom: 0.5rem; }
         .markdown-body p { margin-bottom: 1.25rem; font-weight: 300; line-height: 1.75; color: #333333; }
         .markdown-body code { font-family: 'Courier New', monospace; background: #e6e4de; padding: 0.2rem 0.4rem; font-size: 0.85rem; border-radius: 3px; }
@@ -84,7 +87,7 @@
             metaLabel.innerText = `SRC: ./${targetsFileName}.md`;
             
             try {
-                // Fetch raw markdown data cleanly across repo network bounds
+                // Fetch raw markdown data cleanly across repo root space bounds
                 const networkResponse = await fetch(`./${targetsFileName}.md`);
                 
                 if (!networkResponse.ok) {
@@ -93,13 +96,21 @@
                 
                 const rawMarkdownText = await networkResponse.text();
                 
-                // Parse compilation live down onto document layer view spaces
-                canvas.innerHTML = marked.parse(rawMarkdownText);
+                // Safely invoke compilation using the fully restored marked library engine
+                if (window.marked && window.marked.parse) {
+                    canvas.innerHTML = window.marked.parse(rawMarkdownText);
+                } else {
+                    throw new Error("Marked library is not initialized properly.");
+                }
             } catch (runtimeFault) {
+                console.error(runtimeFault);
                 canvas.innerHTML = `
                     <h1 class="text-2xl font-normal text-claude-dark mb-4">Failed to Load Content Matrix</h1>
-                    <p class="text-sm text-claude-muted">If you are inspecting this system locally in a browser directly via your file manager, cross-origin security configurations (CORS) will prevent resource gathering pipelines.</p>
-                    <pre><code>Local Server Required: Run 'python -m http.server' inside root workspace directories to verify locally.</code></pre>
+                    <p class="text-sm text-claude-muted mb-4">If you are inspecting this system locally in a browser directly via your file manager, cross-origin security configurations (CORS) will prevent resource gathering pipelines.</p>
+                    <div class="bg-[#191919] p-4 text-white font-mono text-xs rounded mb-4">
+                        Error Details: ${runtimeFault.message}
+                    </div>
+                    <pre class="bg-gray-100 p-4 rounded text-xs"><code>Local Server Required: Run 'python -m http.server 8000' inside root workspace directories to verify locally.</code></pre>
                 `;
             }
         }
