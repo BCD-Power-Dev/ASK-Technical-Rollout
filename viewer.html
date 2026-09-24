@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specifications Viewer</title>
+    <script src="https://tailwindcss.com"></script>
+    <!-- Marked Markdown Compiler Library -->
+    <script src="https://jsdelivr.net"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        claude: {
+                            bg: '#fbfaf7',
+                            dark: '#191919',
+                            muted: '#666666',
+                            border: '#e6e4de',
+                            accent: '#cc6633'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        mono: ['Courier New', 'Courier', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://googleapis.com');
+        body { font-family: 'Inter', sans-serif; background-color: #fbfaf7; color: #191919; }
+        /* Style markdown tables clean and minimal */
+        .markdown-body table { width: 100%; margin-bottom: 2rem; border-collapse: collapse; text-align: left; font-size: 0.875rem; }
+        .markdown-body th { padding: 0.75rem; border-bottom: 2px solid #e6e4de; font-family: 'Courier New', monospace; font-size: 0.75rem; color: #666666; text-transform: uppercase; }
+        .markdown-body td { padding: 0.75rem; border-bottom: 1px solid #e6e4de; font-weight: 300; }
+        .markdown-body h1 { font-size: 2.25rem; font-weight: 300; margin-bottom: 1.5rem; letter-spacing: -0.025em; color: #191919; }
+        .markdown-body h2 { font-size: 1.5rem; font-weight: 400; margin-top: 2rem; margin-bottom: 1rem; border-b: 1px solid #e6e4de; padding-bottom: 0.5rem; }
+        .markdown-body h3 { font-size: 1.125rem; font-weight: 500; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        .markdown-body p { margin-bottom: 1.25rem; font-weight: 300; line-height: 1.75; color: #333333; }
+        .markdown-body code { font-family: 'Courier New', monospace; background: #e6e4de; padding: 0.2rem 0.4rem; font-size: 0.85rem; border-radius: 3px; }
+        .markdown-body pre { background: #191919; color: #fbfaf7; padding: 1.5rem; overflow-x: auto; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.875rem; margin-bottom: 1.5rem; }
+        .markdown-body pre code { background: transparent; padding: 0; color: inherit; font-size: inherit; }
+        .markdown-body ul { list-style-type: square; margin-left: 1.5rem; margin-bottom: 1.5rem; font-weight: 300; }
+        .markdown-body li { margin-bottom: 0.5rem; }
+        .markdown-body blockquote { border-left: 4px solid #cc6633; padding-left: 1rem; color: #666666; font-style: italic; margin-bottom: 1.5rem; }
+    </style>
+</head>
+<body class="min-h-screen pb-24">
+
+    <!-- Sticky Navigation Utility Bar -->
+    <nav class="sticky top-0 bg-[#fbfaf7]/90 backdrop-blur-md border-b border-claude-border z-50">
+        <div class="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="index.html" class="font-mono text-xs text-claude-dark hover:text-claude-accent transition-colors flex items-center gap-1.5">
+                ← Back to System Map
+            </a>
+            <span id="doc-meta-label" class="font-mono text-xs text-claude-muted">Loading specification file...</span>
+        </div>
+    </nav>
+
+    <!-- Markdown Target Display Area -->
+    <main class="max-w-3xl mx-auto px-6 mt-16">
+        <article id="document-canvas" class="markdown-body">
+            <!-- Dynamic Content Injected Here -->
+            <p class="text-claude-muted font-mono text-sm">Assembling implementation documentation layers...</p>
+        </article>
+    </main>
+
+    <script>
+        async function runDynamicFetchEngine() {
+            const canvas = document.getElementById('document-canvas');
+            const metaLabel = document.getElementById('doc-meta-label');
+            
+            // Extract file target name from URL Search Parameters
+            const urlParameters = new URLSearchParams(window.location.search);
+            const targetsFileName = urlParameters.get('doc');
+            
+            if (!targetsFileName) {
+                canvas.innerHTML = `<h1 class="text-xl">Error: No Target Specification Defined</h1><p>Please return to the main dashboard.</p>`;
+                return;
+            }
+            
+            metaLabel.innerText = `SRC: docs/${targetsFileName}.md`;
+            
+            try {
+                // Fetch raw markdown data cleanly across repo network bounds
+                const networkResponse = await fetch(`docs/${targetsFileName}.md`);
+                
+                if (!networkResponse.ok) {
+                    throw new Error(`HTTP network fault status returned: ${networkResponse.status}`);
+                }
+                
+                const rawMarkdownText = await networkResponse.text();
+                
+                // Parse compilation live down onto document layer view spaces
+                canvas.innerHTML = marked.parse(rawMarkdownText);
+            } catch (runtimeFault) {
+                canvas.innerHTML = `
+                    <h1 class="text-2xl font-normal text-claude-dark mb-4">Failed to Load Content Matrix</h1>
+                    <p class="text-sm text-claude-muted">If you are inspecting this system locally in a browser directly via your file manager, cross-origin security configurations (CORS) will prevent resource gathering pipelines.</p>
+                    <pre><code>Local Server Required: Run 'python -m http.server' inside root workspace directories to verify locally.</code></pre>
+                `;
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', runDynamicFetchEngine);
+    </script>
+</body>
+</html>
