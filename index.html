@@ -85,16 +85,16 @@
                 title: "Environment Core Setup",
                 subtitle: "Networking & Topology Mapping",
                 description: "Isolating the data tier environment vectors. Provisioning specialized TLS/SSL configurations across port 5432 and anchoring strict ToolJet environment variables.",
-                deliverables: ["Provision 'tooljet_runner' Postgres role", "Map explicit network firewall whitelists", "Establish lockbox encryption variables"],
+                deliverables: ["Provision 'tooljet_admin' Postgres role", "Map explicit network firewall whitelists", "Establish lockbox encryption variables"],
                 docParam: "phase1-architecture"
             },
             {
                 id: "phase-2",
                 stepNumber: "02",
                 title: "Schema Verification Engine",
-                subtitle: "Automated Relational Migrations",
-                description: "Handling continuous integration schema changes outside of the ToolJet platform. Migrations run via clean schema version workflows safely mapped against dedicated staging branches.",
-                deliverables: ["Establish DDL snapshot controls", "Configure PgBouncer thread allocation", "Draft rollback initialization matrix"],
+                subtitle: "Relational Migrations (OKB > ASK)",
+                description: "Handling continuous integration schema changes outside of the ToolJet platform. Migrations run via clean schema version workflows safely mapped against dedicated staging branches (DEV/Staging/Production). Inhanced Postgres Table Schema with trigger and function capabilities for ongoing data cleansing, Document library staging for conversion to read only viewership with exception for authorized users to maintain document in SharePoint.",
+                deliverables: ["Establish DDL snapshot controls", "Configure PgBouncer thread allocation", "Draft rollback initialization matrix", "Document Conversion Storage/Automation in EC2 with R2 cloudfalre starage"],
                 docParam: "phase2-migration"
             },
             {
@@ -102,16 +102,16 @@
                 stepNumber: "03",
                 title: "Identity Access Layer",
                 subtitle: "Role Mapping & Data Segmentation",
-                description: "Mapping incoming single sign-on security domains directly down into custom workspace views while keeping cross-tenant SaaS parameters locked behind strict PostgreSQL queries.",
-                deliverables: ["Bind OAuth2 authentication flows", "Inject user context flags inside queries", "Perform data boundary simulation trials"],
+                description: "Mapping incoming single sign-on security domains directly down into custom workspace views while keeping cross-tenant tooljet parameters locked behind strict PostgreSQL queries.",
+                deliverables: ["Bind OAuth2 authentication flows", "Inject user context flags inside queries via user profile", "Perform data boundary simulation trials"],
                 docParam: "phase3-security"
             },
             {
                 id: "phase-4",
                 stepNumber: "04",
                 title: "Production Cutover Cut",
-                subtitle: "Hour-by-Hour Production Rollout",
-                description: "The execution phase detailing application workspace synchronization maps, immediate automated health validation protocols, and low-latency failback holding page systems.",
+                subtitle: "Phased Production Rollout",
+                description: "The execution phase detailing application workspace synchronization maps, immediate automated health validation protocols, and low-latency failback holding page systems. Restrict global access to Document Library (SP)",
                 deliverables: ["Execute automated seed sequences", "Run JSON application workspace exports", "Perform transactional end-to-end smoke trials"],
                 docParam: "phase4-cutover"
             }
