@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASK Project Blueprint | ToolJet + Postgres Implementation</title>
-    <!-- Tailwind CSS Engine -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -28,7 +27,7 @@
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #fbfaf7; color: #191919; }
     </style>
 </head>
@@ -38,7 +37,7 @@
     <header class="max-w-4xl mx-auto pt-20 px-6 pb-12 border-b border-claude-border">
         <div class="font-mono text-xs tracking-widest text-claude-accent uppercase mb-3">// Architecture Deployment Playbook</div>
         <h1 class="text-4xl font-light tracking-tight text-claude-dark mb-4">
-            ASK ToolJet + PostgreSQL (AWS) Global Application
+            ASK ToolJet + PostgreSQL Engine
         </h1>
         <p class="text-lg text-claude-muted max-w-2xl font-light leading-relaxed">
             An enterprise implementation playbook mapping out data layers, security parameters, identity access control, and low-code orchestrations.
@@ -59,31 +58,26 @@
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Left Side: Interactive Navigation Tabs -->
-            <div id="phase-selector-container" class="space-y-3 md:col-span-1">
-                <!-- Javascript will inject interactive timeline navigation states here -->
-            </div>
+            <div id="phase-selector-container" class="space-y-3 md:col-span-1"></div>
 
-            <!-- Right Side: Dynamic Active Target Metadata Display Panel -->
-            <div id="phase-display-panel" class="md:col-span-2 bg-white p-8 border border-claude-border rounded-sm shadow-sm min-h-[340px] flex flex-col justify-between">
-                <!-- Javascript will inject dynamic active module configurations here -->
-            </div>
+            <!-- Right Side: Dynamic Active Target Display Panel -->
+            <div id="phase-display-panel" class="md:col-span-2 bg-white p-8 border border-claude-border rounded-sm shadow-sm min-h-[340px] flex flex-col justify-between"></div>
         </div>
     </main>
 
     <!-- Project Blueprint Footer -->
     <footer class="max-w-4xl mx-auto px-6 py-12 border-t border-claude-border text-center md:text-left">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-claude-muted">
-            <div>&copy; 2026 / ASK Technical Portfolio Project</div>
+            <div>&copy; 2026 / ASK Technical Project</div>
             <div class="flex gap-4">
-                <a href="./communication.md" class="hover:text-claude-dark underline underline-offset-2">Comms Strategy</a>
+                <a href="viewer.html?doc=communication" class="hover:text-claude-dark underline underline-offset-2">Communication Strategy</a>
                 <a href="https://github.com" class="hover:text-claude-dark underline underline-offset-2">Repository Source</a>
             </div>
         </div>
     </footer>
 
-    <!-- Decoupled Interactive App Logic Engine -->
     <script>
-        // Core Isolated Phase Data Model 
+        // Core Isolated Phase Data Model
         const implementationTimelineData = [
             {
                 id: "phase-1",
@@ -92,7 +86,7 @@
                 subtitle: "Networking & Topology Mapping",
                 description: "Isolating the data tier environment vectors. Provisioning specialized TLS/SSL configurations across port 5432 and anchoring strict ToolJet environment variables.",
                 deliverables: ["Provision 'tooljet_runner' Postgres role", "Map explicit network firewall whitelists", "Establish lockbox encryption variables"],
-                documentationLink: "./phase1-architecture.md"
+                docParam: "phase1-architecture"
             },
             {
                 id: "phase-2",
@@ -101,7 +95,7 @@
                 subtitle: "Automated Relational Migrations",
                 description: "Handling continuous integration schema changes outside of the ToolJet platform. Migrations run via clean schema version workflows safely mapped against dedicated staging branches.",
                 deliverables: ["Establish DDL snapshot controls", "Configure PgBouncer thread allocation", "Draft rollback initialization matrix"],
-                documentationLink: "./phase2-migration.md"
+                docParam: "phase2-migration"
             },
             {
                 id: "phase-3",
@@ -110,39 +104,27 @@
                 subtitle: "Role Mapping & Data Segmentation",
                 description: "Mapping incoming single sign-on security domains directly down into custom workspace views while keeping cross-tenant SaaS parameters locked behind strict PostgreSQL queries.",
                 deliverables: ["Bind OAuth2 authentication flows", "Inject user context flags inside queries", "Perform data boundary simulation trials"],
-                documentationLink: "./phase3-security.md"
+                docParam: "phase3-security"
             },
             {
                 id: "phase-4",
                 stepNumber: "04",
-                title: "Production Cutover & Launch",
+                title: "Production Cutover Cut",
                 subtitle: "Hour-by-Hour Production Rollout",
                 description: "The execution phase detailing application workspace synchronization maps, immediate automated health validation protocols, and low-latency failback holding page systems.",
                 deliverables: ["Execute automated seed sequences", "Run JSON application workspace exports", "Perform transactional end-to-end smoke trials"],
-                documentationLink: "./phase4-cutover.md"
-            },
-            {
-                id: "phase-5",
-                stepNumber: "05",
-                title: "Organizational Rollout",
-                subtitle: "Internal Communication Strategy",
-                description: "Managing corporate alignment, multi-channel broadcast strategies, phase-based department onboarding, and internal hypercare support handoffs.",
-                deliverables: ["Coordinate corporate broadcast alerts", "Deploy feedback and feature request intake matrices", "Establish internal hypercare escalation workflows"],
-                documentationLink: "./communication.md"
+                docParam: "phase4-cutover"
             }
         ];
 
         let activePhaseIndex = 0;
 
-        // UI Compilation Engine Actions
         function renderInteractiveTimelineMap() {
             const selectorContainer = document.getElementById('phase-selector-container');
             const displayPanel = document.getElementById('phase-display-panel');
             
-            // Clean previous iterations
             selectorContainer.innerHTML = '';
             
-            // Build Side Navigation selectors dynamically from the array mapping logic
             implementationTimelineData.forEach((phase, index) => {
                 const isActive = index === activePhaseIndex;
                 const buttonElement = document.createElement('button');
@@ -167,10 +149,7 @@
                 selectorContainer.appendChild(buttonElement);
             });
 
-            // Extract values of currently active pointer
             const currentSelectedData = implementationTimelineData[activePhaseIndex];
-
-            // Map deliverables array into structured checklist string markup
             const computedChecklistHTML = currentSelectedData.deliverables
                 .map(item => `
                     <li class="flex items-start gap-2.5 text-sm text-claude-muted font-light">
@@ -179,7 +158,6 @@
                     </li>
                 `).join('');
 
-            // Inject compiled active panel display block markup safely back onto page space
             displayPanel.innerHTML = `
                 <div>
                     <div class="flex items-center justify-between border-b border-claude-border pb-3 mb-4">
@@ -202,7 +180,7 @@
                 </div>
 
                 <div class="pt-6 mt-6 border-t border-claude-border flex justify-end">
-                    <a href="${currentSelectedData.documentationLink}" class="inline-flex items-center font-mono text-xs text-claude-dark hover:text-claude-accent font-medium tracking-tight gap-1 group">
+                    <a href="viewer.html?doc=${currentSelectedData.docParam}" class="inline-flex items-center font-mono text-xs text-claude-dark hover:text-claude-accent font-medium tracking-tight gap-1 group">
                         Inspect Detailed Playbook Specifications 
                         <span class="transform transition-transform group-hover:translate-x-1">→</span>
                     </a>
@@ -210,7 +188,6 @@
             `;
         }
 
-        // Boot system map execution sequence on structural window frame stabilization context
         document.addEventListener('DOMContentLoaded', renderInteractiveTimelineMap);
     </script>
 </body>
