@@ -81,11 +81,11 @@
                 return;
             }
             
-            metaLabel.innerText = `SRC: ${targetsFileName}.md`;
+            metaLabel.innerText = `SRC: ./${targetsFileName}.md`;
             
             try {
                 // Fetch raw markdown data cleanly across repo network bounds
-                const networkResponse = await fetch(`${targetsFileName}.md`);
+                const networkResponse = await fetch(`./${targetsFileName}.md`);
                 
                 if (!networkResponse.ok) {
                     throw new Error(`HTTP network fault status returned: ${networkResponse.status}`);
