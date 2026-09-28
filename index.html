@@ -40,7 +40,7 @@
             ASK ToolJet + PostgreSQL Engine
         </h1>
         <p class="text-lg text-claude-muted max-w-2xl font-light leading-relaxed">
-            An enterprise implementation playbook mapping out data layers, security parameters, identity access control, and low-code orchestrations.
+            An enterprise implementation playbook mapping out data layers, security parameters, identity access control, and low-code orchestrations. Tech Stack - Tooljet (Application), AWS- EC2 DB (Postgres), Cloudflare- R2 (Document Storage post conversion), SharePoint (Document Authoring - Restricted)
         </p>
         
         <!-- Live App Context Pill -->
@@ -99,7 +99,6 @@
                 subtitle: "Tooljet UI/UX implementation",
                 description: "Tooljet development of account level information and knowledgebase for enterprise global user base",
                 deliverables: [
-                    { text: "Custom React Components Dev", status: "Complete" },
                     { text: "Policy Components (Air, Car, Rail, Hotel, Ground, Taxi, Ferry)", status: "Complete" },
                     { text: "Account Summary Component", status: "Complete" },
                     { text: "Form of Payment Component", status: "Complete" },
@@ -121,7 +120,9 @@
 					{ text: "Edit - PCC/OID", status: "Debug" },
 					{ text: "Edit - FOP", status: "Debug" },
 					{ text: "ESS Summary", status: "Under Dev" },
-					{ text: "Edit - User Profiles", status: "Under Dev" }
+					{ text: "Edit - User Profiles", status: "Under Dev" },
+					{ text: "Account Contacts Component", status: "Complete" },
+					{ text: "BCD Contacts Component", status: "Complete" }
                 ],
                 docParam: "phase0-ui_ux structure"
             },
@@ -152,7 +153,8 @@
                     { text: "Establish DDL snapshot controls", status: "Complete" },
                     { text: "Configure PgBouncer thread allocation", status: "Complete" },
                     { text: "Draft rollback initialization matrix", status: "Under Dev" },
-                    { text: "Document Conversion Storage/Automation in EC2 with R2 cloudflare storage (R2 vs EC2 storage is based on cost savings)", status: "Under Dev" }
+                    { text: "Document Conversion Storage/Automation in EC2 with R2 cloudflare storage (R2 vs EC2 storage is based on cost savings)", status: "Under Dev" },
+					{ text: "Migrate instance behind VPN", status: "Under Dev" }
                 ],
                 docParam: "phase2-migration"
             },
