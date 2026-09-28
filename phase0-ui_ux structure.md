@@ -2,12 +2,13 @@
 Development is centered around the migration of content and function existing in SharePoint PowerApps into the ToolJet UI/UX platform. Many of the custom functions in PowerApps will be supported in ToolJet using custom REACT custom components. The breakdown of the complete migration schedule is listed below with associated deliverables.
 
 ## Phase 1 - Account Tool
+  
 ### Account Selection Module
   - [X] GCN: GCN select > SMID select > LCN select
   - [X] SMID: Dynamic search
   - [X] LCN: Dynamic earch
   - [X] Saved Favorites (**Could be depreciated with country of service variable)
-    
+  
 ### Summary
   - [X] SMID/LCN Profile
   - [X] PCC/OID Results
@@ -139,17 +140,137 @@ Supplier provides the preferred suppliers and associated contacts and any releva
     - [X] Edit
     - [X] ref_travel_categories (inherited)
     - [X] Suppliers
+    - [X] Supplier Contacts
     
 ***Related Tables***
-> account_supplier_contacts,account_suppliers,supplier,ref_travel_categories,traveler_types,smid,lcn
+> account_supplier_contacts,account_suppliers,supplier,ref_travel_categories,smid,lcn
 
 ##### <mark>Air Savings/Reason Codes (Custom REACT component)</mark>
+TBD
 
 ##### <mark>Documents (Custom REACT component)</mark>
+Component uses a sql query to filter docuements associated with travel category, SMID/LCN
+  - [X] Documents
+    - [X] View Only (PDF converted)
+    
+***Related Tables***
+> documents
 
 ##### <mark>NDC</mark>
+Static link to existing SP pages
+
+> [!WARNING]
+> This section will need to be developed in greater detail when schema of information can be reviewed. 
 
 ##### <mark>Traveler Types (Nested Custom REACT component)</mark>
+Traveler types is a refinement on policy allowing for a more granular view of information as it pertains to the traveler type. Information related to Policy, Form of Payment, and Processes. Traveler selection is generated from a list of traveler types that are based on account level (GCN) attributes. JS actions trigger updates to queries to populate data in scope with traveler type. All Modules are inherited with data binding alteration per section with exception for fare class rules which is a more complex rule engine. 
+  - [X] Fare Class Rules
+    - [X] Add
+    - [X] Edit
+  - [X] Policy
+    - [X] Add
+    - [X] Edit
+  - [X] Form of Payment
+    - [X] Add
+    - [X] Edit
+  - [X] Process
+    - [X] Add
+    - [X] Edit
+  
+***Related Tables***
+>fare_class_rules,fare_class_rules_logic,condition_criteria,traveler_types,smid,lcn - All other references are source in previous annotation
+
+#### Car
+##### <mark>Policy (Custom REACT component)</mark>
+Policy is a custom react component stored in a module with dynamic data input that can be dynamically altered based on travel type, SMID/LCN. Policy is structured with Parent and child topic to assist in a structured topic tree. This module uses a JS action to compile the actions based on the data variables applied. 
+  - [X] Policy Module
+    - [X] Add Parent
+    - [X] Edit Parent
+    - [X] Add Child
+    - [X] Edit Child
+    - [X] traveler_types
+    
+***Related Tables***
+> carpolicy,carpolicy_subtopcs,traveler_types,smid,lcn
+
+##### <mark>Form of Payment (Custom REACT component)</mark>
+FOP is a custom react component stored in a module with dynamic data input that can be dynamically altered based on travel type, SMID/LCN
+  - [X] Form Of Payment
+    - [X] Add
+    - [X] Edit
+    - [ ] ref_travel_categories
+    - [X] traveler_types
+
+> [!WARNING]
+> Category is not loading, needs debug in config
+    
+***Related Tables***
+> form_of_payment,ref_travel_categories,traveler_types,smid,lcn
+
+##### <mark>Process (Custom REACT component)</mark>
+Process is a simplified repo of account related processes. This table functions as a bridge of existing SP artifacts and future dev to a more robust relational data structure. Current iteration resolves to technology (tool) or OBT, travel category(multi select) and traveler type. 
+  - [X] Process
+    - [X] Add
+    - [X] Edit
+    - [X] ref_travel_categories
+    - [X] traveler_types
+    - [X] technology
+    - [X] obt
+
+> [!WARNING]
+> GCN / SMID text fields needs to be removed from form
+    
+***Related Tables***
+> process,ref_technology,obt,ref_travel_categories,traveler_types,smid,lcn
+
+##### <mark>Suppliers (Custom REACT component)</mark>
+Supplier provides the preferred suppliers and associated contacts and any relevant information. Suppliers is a custom component nested in a module that uses dynamic data binding. 
+  - [X] Suppliers
+    - [X] Add
+    - [X] Edit
+    - [X] ref_travel_categories (inherited)
+    - [X] Suppliers
+    - [X] Supplier Contacts
+    
+***Related Tables***
+> account_supplier_contacts,account_suppliers,supplier,ref_travel_categories,smid,lcn
+
+##### <mark>Car Savings/Reason Codes (Custom REACT component)</mark>
+TBD
+
+##### <mark>Documents (Custom REACT component)</mark>
+Component uses a sql query to filter docuements associated with travel category, SMID/LCN
+  - [X] Documents
+    - [X] View Only (PDF converted)
+    
+***Related Tables***
+> documents
+
+##### <mark>NDC</mark>
+Static link to existing SP pages
+
+> [!WARNING]
+> This section will need to be developed in greater detail when schema of information can be reviewed. 
+
+##### <mark>Traveler Types (Nested Custom REACT component)</mark>
+Traveler types is a refinement on policy allowing for a more granular view of information as it pertains to the traveler type. Information related to Policy, Form of Payment, and Processes. Traveler selection is generated from a list of traveler types that are based on account level (GCN) attributes. JS actions trigger updates to queries to populate data in scope with traveler type. All Modules are inherited with data binding alteration per section with exception for fare class rules which is a more complex rule engine. 
+  - [X] Fare Class Rules
+    - [X] Add
+    - [X] Edit
+  - [X] Policy
+    - [X] Add
+    - [X] Edit
+  - [X] Form of Payment
+    - [X] Add
+    - [X] Edit
+  - [X] Process
+    - [X] Add
+    - [X] Edit
+  
+***Related Tables***
+>fare_class_rules,fare_class_rules_logic,condition_criteria,traveler_types,smid,lcn - All other references are source in previous annotation
+
+
 
 ## Phase 2 - Process and Procudures
 TBD
