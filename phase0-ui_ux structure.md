@@ -235,7 +235,7 @@ Supplier provides the preferred suppliers and associated contacts and any releva
 ***Related Tables***
 > account_supplier_contacts,account_suppliers,supplier,ref_travel_categories,smid,lcn
 
-##### <mark>Car Savings/Reason Codes (Custom REACT component)</mark>
+##### <mark>Savings/Reason Codes (Custom REACT component)</mark>
 TBD
 
 ##### <mark>Documents (Custom REACT component)</mark>
@@ -245,12 +245,6 @@ Component uses a sql query to filter docuements associated with travel category,
     
 ***Related Tables***
 > documents
-
-##### <mark>NDC</mark>
-Static link to existing SP pages
-
-> [!WARNING]
-> This section will need to be developed in greater detail when schema of information can be reviewed. 
 
 ##### <mark>Traveler Types (Nested Custom REACT component)</mark>
 Traveler types is a refinement on policy allowing for a more granular view of information as it pertains to the traveler type. Information related to Policy, Form of Payment, and Processes. Traveler selection is generated from a list of traveler types that are based on account level (GCN) attributes. JS actions trigger updates to queries to populate data in scope with traveler type. All Modules are inherited with data binding alteration per section with exception for fare class rules which is a more complex rule engine. 
