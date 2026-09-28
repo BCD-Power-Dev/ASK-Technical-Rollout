@@ -21,7 +21,7 @@ Development is centered around the migration of content and function existing in
 #### General
 ##### <mark>General (Custom REACT component)</mark>
 General migrates the existing SP Technology DB. Topics Are relational to SMID/LCN and have unique category and time duration constraints(optional). Topics can be free text searched or by catagory.
-  - [X] General Topics
+  - [X] General Topics [jsx]()
     - [X] Add
     - [X] Edit
 
@@ -254,7 +254,7 @@ Static link to existing SP pages
 
 ##### <mark>Traveler Types (Nested Custom REACT component)</mark>
 Traveler types is a refinement on policy allowing for a more granular view of information as it pertains to the traveler type. Information related to Policy, Form of Payment, and Processes. Traveler selection is generated from a list of traveler types that are based on account level (GCN) attributes. JS actions trigger updates to queries to populate data in scope with traveler type. All Modules are inherited with data binding alteration per section with exception for fare class rules which is a more complex rule engine. 
-  - [X] Fare Class Rules
+  - [X] Fare Class Rules [jsx](fare_class_rules.jsx)
     - [X] Add
     - [X] Edit
   - [X] Policy
