@@ -79,7 +79,7 @@
     <!-- Project Blueprint Footer -->
     <footer class="max-w-4xl mx-auto px-6 py-12 border-t border-claude-border text-center md:text-left">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-claude-muted">
-            <div>ASK Technical Project</div>
+            <div>&copy; 2026 / ASK Technical Project</div>
             <div class="flex gap-4">
                 <a href="viewer.html?doc=communication" class="hover:text-claude-dark underline underline-offset-2">Communication Strategy</a>
                 <a href="https://github.com" class="hover:text-claude-dark underline underline-offset-2">Repository Source</a>
@@ -98,51 +98,78 @@
                 title: "Account - UI/UX Development",
                 subtitle: "Tooljet UI/UX implementation",
                 description: "Tooljet development of account level information and knowledgebase for enterprise global user base",
-                deliverables: ["Custom React Components Dev", "Account Policy Components (Air, Car, Rail, Hotel, Ground, Taxi, Ferry)", "Account Summary Component", "Summary Edit Components (SMID/LCN/FOP/PCC-OID)"],
+                deliverables: [
+                    { text: "Custom React Components Dev", status: "Complete" },
+                    { text: "Policy Components (Air, Car, Rail, Hotel, Ground, Taxi, Ferry)", status: "Complete" },
+                    { text: "Account Summary Component", status: "Complete" },
+                    { text: "Summary Edit Components (SMID/LCN/FOP/PCC-OID)", status: "Under Dev" },
+                    { text: "Form of Payment Component", status: "Complete" },
+                    { text: "Process Component", status: "Complete" },
+                    { text: "Supplier Component", status: "Complete" },
+                    { text: "Fare and Ticketing Component", status: "Complete" },
+                    { text: "Booking Component", status: "Complete" }
+                ],
                 docParam: "phase0-ui_ux structure"
             },
             {
                 id: "phase-1",
                 stepNumber: "01",
-                date: "Aug 2026",
+                date: "Feb 2026",
                 status: "Production",
-                title: "Account - Environment Core Setup",
+                title: "Environment Core Setup",
                 subtitle: "Networking & Topology Mapping",
                 description: "Isolating the data tier environment vectors. Provisioning specialized TLS/SSL configurations across port 5432 and anchoring strict ToolJet environment variables.",
-                deliverables: ["Provision 'tooljet_admin' Postgres role", "Map explicit network firewall whitelists", "Establish lockbox encryption variables"],
+                deliverables: [
+                    { text: "Provision 'tooljet_admin' Postgres role", status: "Complete" },
+                    { text: "Map explicit network firewall whitelists", status: "Complete" },
+                    { text: "Establish lockbox encryption variables", status: "Complete" }
+                ],
                 docParam: "phase1-architecture"
             },
             {
                 id: "phase-2",
                 stepNumber: "02",
-                date: "Jan 2026",
-                status: "Production",
-                title: "Account - Schema Verification Engine",
+                date: "Mar 2026",
+                status: "Staging",
+                title: "Schema Verification Engine",
                 subtitle: "Relational Migrations (OKB > ASK)",
                 description: "Handling continuous integration schema changes outside of the ToolJet platform. Migrations run via clean schema version workflows safely mapped against dedicated staging branches (DEV/Staging/Production). Enhanced Postgres Table Schema with trigger and function capabilities for ongoing data cleansing, Document library staging for conversion to read only viewership with exception for authorized users to maintain document in SharePoint.",
-                deliverables: ["Establish DDL snapshot controls", "Configure PgBouncer thread allocation", "Draft rollback initialization matrix", "Document Conversion Storage/Automation in EC2 with R2 cloudflare storage (R2 vs EC2 storage is based on cost savings)"],
+                deliverables: [
+                    { text: "Establish DDL snapshot controls", status: "Complete" },
+                    { text: "Configure PgBouncer thread allocation", status: "Complete" },
+                    { text: "Draft rollback initialization matrix", status: "Under Dev" },
+                    { text: "Document Conversion Storage/Automation in EC2 with R2 cloudflare storage (R2 vs EC2 storage is based on cost savings)", status: "Under Dev" }
+                ],
                 docParam: "phase2-migration"
             },
             {
                 id: "phase-3",
                 stepNumber: "03",
-                date: "Oct 2026",
+                date: "Apr 2026",
                 status: "Dev",
-                title: "Account - Identity Access Layer",
+                title: "Identity Access Layer",
                 subtitle: "Role Mapping & Data Segmentation",
                 description: "Mapping incoming single sign-on security domains directly down into custom workspace views while keeping cross-tenant tooljet parameters locked behind strict PostgreSQL queries.",
-                deliverables: ["Bind OAuth2 authentication flows", "Inject user context flags inside queries via user profile", "Perform data boundary simulation trials"],
+                deliverables: [
+                    { text: "Bind OAuth2 authentication flows", status: "Under Dev" },
+                    { text: "Inject user context flags inside queries via user profile", status: "Under Dev" },
+                    { text: "Perform data boundary simulation trials", status: "Under Dev" }
+                ],
                 docParam: "phase3-security"
             },
             {
                 id: "phase-4",
                 stepNumber: "04",
-                date: "Dec 2026",
+                date: "May 2026",
                 status: "Debug",
-                title: "Account - Production Cutover Cut",
+                title: "Production Cutover Cut",
                 subtitle: "Phased Production Rollout",
                 description: "The execution phase detailing application workspace synchronization maps, immediate automated health validation protocols, and low-latency failback holding page systems. Restrict global access to Document Library (SP)",
-                deliverables: ["Execute automated seed sequences", "Run JSON application workspace exports", "Perform transactional end-to-end smoke trials"],
+                deliverables: [
+                    { text: "Execute automated seed sequences", status: "Under Dev" },
+                    { text: "Run JSON application workspace exports", status: "Under Dev" },
+                    { text: "Perform transactional end-to-end smoke trials", status: "Under Dev" }
+                ],
                 docParam: "phase4-cutover"
             },
             {
@@ -153,7 +180,9 @@
                 title: "Process and Procedure - Environment Core Setup",
                 subtitle: "Phased Production Rollout",
                 description: "TBD",
-                deliverables: ["TDB"],
+                deliverables: [
+			{text: "TDB", status:"Under Dev"}
+		],
                 docParam: ""
             },
             {
@@ -164,21 +193,30 @@
                 title: "Process and Procedure - UX/UI Dev",
                 subtitle: "Phased Production Rollout",
                 description: "TBD",
-                deliverables: ["TDB"],
+                deliverables: [
+			{text: "TDB", status:"Under Dev"}
+		],
                 docParam: ""
             }
         ];
 
         let activePhaseIndex = 0;
 
-        // Function helper to choose visual styling for status states
+        // Function helper to choose visual styling for status states uniformly
         function getStatusStyle(status) {
             switch(status) {
-                case 'Production': return 'bg-emerald-50 text-emerald-700 border-emerald-200';
-                case 'Staging': return 'bg-amber-50 text-amber-700 border-amber-200';
-                case 'Dev': return 'bg-blue-50 text-blue-700 border-blue-200';
-                case 'Debug': return 'bg-rose-50 text-rose-700 border-rose-200';
-                default: return 'bg-gray-50 text-gray-700 border-gray-200';
+                case 'Production':
+                case 'Complete': 
+                    return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                case 'Staging':
+                case 'Under Dev': 
+                    return 'bg-amber-50 text-amber-700 border-amber-200';
+                case 'Dev': 
+                    return 'bg-blue-50 text-blue-700 border-blue-200';
+                case 'Debug': 
+                    return 'bg-rose-50 text-rose-700 border-rose-200';
+                default: 
+                    return 'bg-gray-50 text-gray-700 border-gray-200';
             }
         }
 
@@ -211,7 +249,7 @@
                         ${phase.stepNumber}
                     </div>
                     <span class="text-[10px] font-mono tracking-tight mt-1 text-claude-accent font-medium">
-                        ${phase.date}
+                        ${phase.date.split(' ')[0]}
                     </span>
                     <span class="text-[9px] font-mono px-1 rounded border mt-0.5 max-w-full truncate ${getStatusStyle(phase.status)}">
                         ${phase.status}
@@ -253,9 +291,14 @@
             const currentSelectedData = implementationTimelineData[activePhaseIndex];
             const computedChecklistHTML = currentSelectedData.deliverables
                 .map(item => `
-                    <li class="flex items-start gap-2.5 text-sm text-claude-muted font-light">
-                        <span class="text-claude-accent font-mono mt-0.5">→</span>
-                        <span>${item}</span>
+                    <li class="flex items-center justify-between gap-4 text-sm text-claude-muted font-light pb-1 border-b border-claude-border/20 last:border-0">
+                        <div class="flex items-start gap-2.5">
+                            <span class="text-claude-accent font-mono mt-0.5">→</span>
+                            <span>${item.text}</span>
+                        </div>
+                        <span class="font-mono text-[9px] tracking-tight px-1.5 py-0.5 rounded border shrink-0 ${getStatusStyle(item.status)}">
+                            ${item.status}
+                        </span>
                     </li>
                 `).join('');
 
@@ -275,9 +318,9 @@
                         ${currentSelectedData.description}
                     </p>
                     
-                    <div class="space-y-2">
-                        <h4 class="font-mono text-[11px] uppercase tracking-wider text-claude-dark font-semibold mb-3">Target Validation Objectives:</h4>
-                        <ul class="space-y-2">
+                    <div class="space-y-3">
+                        <h4 class="font-mono text-[11px] uppercase tracking-wider text-claude-dark font-semibold mb-1">Target Validation Objectives:</h4>
+                        <ul class="space-y-2.5">
                             ${computedChecklistHTML}
                         </ul>
                     </div>
