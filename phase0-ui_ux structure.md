@@ -8,6 +8,9 @@ Development is centered around the migration of content and function existing in
   - [X] SMID: Dynamic search
   - [X] LCN: Dynamic earch
   - [X] Saved Favorites (**Could be depreciated with country of service variable)
+
+***Related Tables***
+> smid,lcn,gcn
   
 ### Summary
   - [X] SMID/LCN Profile
@@ -16,7 +19,25 @@ Development is centered around the migration of content and function existing in
   - [X] Account Status (Date determination)
   - [X] Contact Details (BCD/Account)
   - [X] Operational Hours
-    
+  - [ ] Account Contacts (account_employee_list SP migration)
+
+***Related Tables***
+> smid,lcn,pcc_oid,form_of_payment,bcd_contacts,account_employee_list
+
+### Documents
+  - [X] Documents
+  
+### ESS
+  - [X] SMID/LCN Profile
+  - [X] PCC/OID Results
+  - [X] Form of Payment
+  - [X] Account Status (Date determination)
+  - [X] Contact Details (BCD/Account)
+  - [X] Operational Hours
+
+***Related Tables***
+> smid,lcn,pcc_oid,form_of_payment,bcd_contacts,account_employee_list
+
 ### Policy (Multi Tab UI)
 #### General
 ##### <mark>General (Custom REACT component)</mark>
@@ -263,9 +284,426 @@ Traveler types is a refinement on policy allowing for a more granular view of in
   
 ***Related Tables***
 >fare_class_rules,fare_class_rules_logic,condition_criteria,traveler_types,smid,lcn - All other references are source in previous annotation
+*************
+#### Hotel
+##### <mark>Policy (Custom REACT component)</mark>
+Policy is a custom react component stored in a module with dynamic data input that can be dynamically altered based on travel type, SMID/LCN. Policy is structured with Parent and child topic to assist in a structured topic tree. This module uses a JS action to compile the actions based on the data variables applied. 
+  - [X] Policy Module [jsx](policy.jsx)
+    - [X] Add Parent
+    - [X] Edit Parent
+    - [X] Add Child
+    - [X] Edit Child
+    - [X] traveler_types
+    
+***Related Tables***
+> hotelpolicy,hotelpolicy_subtopcs,traveler_types,smid,lcn
 
+##### <mark>Form of Payment (Custom REACT component)</mark>
+FOP is a custom react component stored in a module with dynamic data input that can be dynamically altered based on travel type, SMID/LCN
+  - [X] Form Of Payment [jsx](form_of_payment.jsx)
+    - [X] Add
+    - [X] Edit
+    - [ ] ref_travel_categories
+    - [X] traveler_types
 
+> [!WARNING]
+> Category is not loading, needs debug in config
+    
+***Related Tables***
+> form_of_payment,ref_travel_categories,traveler_types,smid,lcn
 
+##### <mark>Process (Custom REACT component)</mark>
+Process is a simplified repo of account related processes. This table functions as a bridge of existing SP artifacts and future dev to a more robust relational data structure. Current iteration resolves to technology (tool) or OBT, travel category(multi select) and traveler type. 
+  - [X] Process [jsx](process.jsx)
+    - [X] Add
+    - [X] Edit
+    - [X] ref_travel_categories
+    - [X] traveler_types
+    - [X] technology
+    - [X] obt
+
+> [!WARNING]
+> GCN / SMID text fields needs to be removed from form
+    
+***Related Tables***
+> process,ref_technology,obt,ref_travel_categories,traveler_types,smid,lcn
+
+##### <mark>Suppliers (Custom REACT component)</mark>
+Supplier provides the preferred suppliers and associated contacts and any relevant information. Suppliers is a custom component nested in a module that uses dynamic data binding. 
+  - [X] Suppliers [jsx](suppliers.jsx)
+    - [X] Add
+    - [X] Edit
+    - [X] ref_travel_categories (inherited)
+    - [X] Suppliers
+    - [X] Supplier Contacts
+    
+***Related Tables***
+> account_supplier_contacts,account_suppliers,supplier,ref_travel_categories,smid,lcn
+
+##### <mark>Savings/Reason Codes (Custom REACT component)</mark>
+TBD
+
+##### <mark>Documents (Custom REACT component)</mark>
+Component uses a sql query to filter docuements associated with travel category, SMID/LCN
+  - [X] Documents [jsx](documents.jsx)
+    - [X] View Only (PDF converted)
+    
+***Related Tables***
+> documents
+
+##### <mark>Traveler Types (Nested Custom REACT component)</mark>
+Traveler types is a refinement on policy allowing for a more granular view of information as it pertains to the traveler type. Information related to Policy, Form of Payment, and Processes. Traveler selection is generated from a list of traveler types that are based on account level (GCN) attributes. JS actions trigger updates to queries to populate data in scope with traveler type. All Modules are inherited with data binding alteration per section with exception for fare class rules which is a more complex rule engine. 
+  - [ ] Booking Rules 
+    - [ ] Add
+    - [ ] Edit
+  - [X] Policy [jsx](general_topics.jsx)
+    - [X] Add
+    - [X] Edit
+  - [X] Form of Payment [jsx](form_of_payment.jsx)
+    - [X] Add
+    - [X] Edit
+  - [X] Process [jsx](process.jsx)
+    - [X] Add
+    - [X] Edit
+  
+***Related Tables***
+>fare_class_rules,fare_class_rules_logic,condition_criteria,traveler_types,smid,lcn - All other references are source in previous annotation
+***********
+#### Rail
+##### <mark>Policy (Custom REACT component)</mark>
+Policy is a custom react component stored in a module with dynamic data input that can be dynamically altered based on travel type, SMID/LCN. Policy is structured with Parent and child topic to assist in a structured topic tree. This module uses a JS action to compile the actions based on the data variables applied. 
+  - [X] Policy Module [jsx](policy.jsx)
+    - [X] Add Parent
+    - [X] Edit Parent
+    - [X] Add Child
+    - [X] Edit Child
+    - [X] traveler_types
+    
+***Related Tables***
+> railpolicy,railpolicy_subtopcs,traveler_types,smid,lcn
+
+##### <mark>Form of Payment (Custom REACT component)</mark>
+FOP is a custom react component stored in a module with dynamic data input that can be dynamically altered based on travel type, SMID/LCN
+  - [X] Form Of Payment [jsx](form_of_payment.jsx)
+    - [X] Add
+    - [X] Edit
+    - [ ] ref_travel_categories
+    - [X] traveler_types
+
+> [!WARNING]
+> Category is not loading, needs debug in config
+    
+***Related Tables***
+> form_of_payment,ref_travel_categories,traveler_types,smid,lcn
+
+##### <mark>Process (Custom REACT component)</mark>
+Process is a simplified repo of account related processes. This table functions as a bridge of existing SP artifacts and future dev to a more robust relational data structure. Current iteration resolves to technology (tool) or OBT, travel category(multi select) and traveler type. 
+  - [X] Process [jsx](process.jsx)
+    - [X] Add
+    - [X] Edit
+    - [X] ref_travel_categories
+    - [X] traveler_types
+    - [X] technology
+    - [X] obt
+
+> [!WARNING]
+> GCN / SMID text fields needs to be removed from form
+    
+***Related Tables***
+> process,ref_technology,obt,ref_travel_categories,traveler_types,smid,lcn
+
+##### <mark>Suppliers (Custom REACT component)</mark>
+Supplier provides the preferred suppliers and associated contacts and any relevant information. Suppliers is a custom component nested in a module that uses dynamic data binding. 
+  - [X] Suppliers [jsx](suppliers.jsx)
+    - [X] Add
+    - [X] Edit
+    - [X] ref_travel_categories (inherited)
+    - [X] Suppliers
+    - [X] Supplier Contacts
+    
+***Related Tables***
+> account_supplier_contacts,account_suppliers,supplier,ref_travel_categories,smid,lcn
+
+##### <mark>Savings/Reason Codes (Custom REACT component)</mark>
+TBD
+
+##### <mark>Documents (Custom REACT component)</mark>
+Component uses a sql query to filter docuements associated with travel category, SMID/LCN
+  - [X] Documents [jsx](documents.jsx)
+    - [X] View Only (PDF converted)
+    
+***Related Tables***
+> documents
+
+##### <mark>Traveler Types (Nested Custom REACT component)</mark>
+Traveler types is a refinement on policy allowing for a more granular view of information as it pertains to the traveler type. Information related to Policy, Form of Payment, and Processes. Traveler selection is generated from a list of traveler types that are based on account level (GCN) attributes. JS actions trigger updates to queries to populate data in scope with traveler type. All Modules are inherited with data binding alteration per section with exception for fare class rules which is a more complex rule engine. 
+  - [ ] Booking Rules 
+    - [ ] Add
+    - [ ] Edit
+  - [X] Policy [jsx](general_topics.jsx)
+    - [X] Add
+    - [X] Edit
+  - [X] Form of Payment [jsx](form_of_payment.jsx)
+    - [X] Add
+    - [X] Edit
+  - [X] Process [jsx](process.jsx)
+    - [X] Add
+    - [X] Edit
+  
+***Related Tables***
+>fare_class_rules,fare_class_rules_logic,condition_criteria,traveler_types,smid,lcn - All other references are source in previous annotation
+***********
+#### Ground
+##### <mark>Policy (Custom REACT component)</mark>
+Policy is a custom react component stored in a module with dynamic data input that can be dynamically altered based on travel type, SMID/LCN. Policy is structured with Parent and child topic to assist in a structured topic tree. This module uses a JS action to compile the actions based on the data variables applied. 
+  - [X] Policy Module [jsx](policy.jsx)
+    - [X] Add Parent
+    - [X] Edit Parent
+    - [X] Add Child
+    - [X] Edit Child
+    - [X] traveler_types
+    
+***Related Tables***
+> groundpolicy,groundpolicy_subtopcs,traveler_types,smid,lcn
+
+##### <mark>Form of Payment (Custom REACT component)</mark>
+FOP is a custom react component stored in a module with dynamic data input that can be dynamically altered based on travel type, SMID/LCN
+  - [X] Form Of Payment [jsx](form_of_payment.jsx)
+    - [X] Add
+    - [X] Edit
+    - [ ] ref_travel_categories
+    - [X] traveler_types
+
+> [!WARNING]
+> Category is not loading, needs debug in config
+    
+***Related Tables***
+> form_of_payment,ref_travel_categories,traveler_types,smid,lcn
+
+##### <mark>Process (Custom REACT component)</mark>
+Process is a simplified repo of account related processes. This table functions as a bridge of existing SP artifacts and future dev to a more robust relational data structure. Current iteration resolves to technology (tool) or OBT, travel category(multi select) and traveler type. 
+  - [X] Process [jsx](process.jsx)
+    - [X] Add
+    - [X] Edit
+    - [X] ref_travel_categories
+    - [X] traveler_types
+    - [X] technology
+    - [X] obt
+
+> [!WARNING]
+> GCN / SMID text fields needs to be removed from form
+    
+***Related Tables***
+> process,ref_technology,obt,ref_travel_categories,traveler_types,smid,lcn
+
+##### <mark>Suppliers (Custom REACT component)</mark>
+Supplier provides the preferred suppliers and associated contacts and any relevant information. Suppliers is a custom component nested in a module that uses dynamic data binding. 
+  - [X] Suppliers [jsx](suppliers.jsx)
+    - [X] Add
+    - [X] Edit
+    - [X] ref_travel_categories (inherited)
+    - [X] Suppliers
+    - [X] Supplier Contacts
+    
+***Related Tables***
+> account_supplier_contacts,account_suppliers,supplier,ref_travel_categories,smid,lcn
+
+##### <mark>Savings/Reason Codes (Custom REACT component)</mark>
+TBD
+
+##### <mark>Documents (Custom REACT component)</mark>
+Component uses a sql query to filter docuements associated with travel category, SMID/LCN
+  - [X] Documents [jsx](documents.jsx)
+    - [X] View Only (PDF converted)
+    
+***Related Tables***
+> documents
+
+##### <mark>Traveler Types (Nested Custom REACT component)</mark>
+Traveler types is a refinement on policy allowing for a more granular view of information as it pertains to the traveler type. Information related to Policy, Form of Payment, and Processes. Traveler selection is generated from a list of traveler types that are based on account level (GCN) attributes. JS actions trigger updates to queries to populate data in scope with traveler type. All Modules are inherited with data binding alteration per section with exception for fare class rules which is a more complex rule engine. 
+  - [ ] Booking Rules 
+    - [ ] Add
+    - [ ] Edit
+  - [X] Policy [jsx](general_topics.jsx)
+    - [X] Add
+    - [X] Edit
+  - [X] Form of Payment [jsx](form_of_payment.jsx)
+    - [X] Add
+    - [X] Edit
+  - [X] Process [jsx](process.jsx)
+    - [X] Add
+    - [X] Edit
+  
+***Related Tables***
+>fare_class_rules,fare_class_rules_logic,condition_criteria,traveler_types,smid,lcn - All other references are source in previous annotation
+***********
+#### Ferry
+##### <mark>Policy (Custom REACT component)</mark>
+Policy is a custom react component stored in a module with dynamic data input that can be dynamically altered based on travel type, SMID/LCN. Policy is structured with Parent and child topic to assist in a structured topic tree. This module uses a JS action to compile the actions based on the data variables applied. 
+  - [X] Policy Module [jsx](policy.jsx)
+    - [X] Add Parent
+    - [X] Edit Parent
+    - [X] Add Child
+    - [X] Edit Child
+    - [X] traveler_types
+    
+***Related Tables***
+> ferrypolicy,ferrypolicy_subtopcs,traveler_types,smid,lcn
+
+##### <mark>Form of Payment (Custom REACT component)</mark>
+FOP is a custom react component stored in a module with dynamic data input that can be dynamically altered based on travel type, SMID/LCN
+  - [X] Form Of Payment [jsx](form_of_payment.jsx)
+    - [X] Add
+    - [X] Edit
+    - [ ] ref_travel_categories
+    - [X] traveler_types
+
+> [!WARNING]
+> Category is not loading, needs debug in config
+    
+***Related Tables***
+> form_of_payment,ref_travel_categories,traveler_types,smid,lcn
+
+##### <mark>Process (Custom REACT component)</mark>
+Process is a simplified repo of account related processes. This table functions as a bridge of existing SP artifacts and future dev to a more robust relational data structure. Current iteration resolves to technology (tool) or OBT, travel category(multi select) and traveler type. 
+  - [X] Process [jsx](process.jsx)
+    - [X] Add
+    - [X] Edit
+    - [X] ref_travel_categories
+    - [X] traveler_types
+    - [X] technology
+    - [X] obt
+
+> [!WARNING]
+> GCN / SMID text fields needs to be removed from form
+    
+***Related Tables***
+> process,ref_technology,obt,ref_travel_categories,traveler_types,smid,lcn
+
+##### <mark>Suppliers (Custom REACT component)</mark>
+Supplier provides the preferred suppliers and associated contacts and any relevant information. Suppliers is a custom component nested in a module that uses dynamic data binding. 
+  - [X] Suppliers [jsx](suppliers.jsx)
+    - [X] Add
+    - [X] Edit
+    - [X] ref_travel_categories (inherited)
+    - [X] Suppliers
+    - [X] Supplier Contacts
+    
+***Related Tables***
+> account_supplier_contacts,account_suppliers,supplier,ref_travel_categories,smid,lcn
+
+##### <mark>Savings/Reason Codes (Custom REACT component)</mark>
+TBD
+
+##### <mark>Documents (Custom REACT component)</mark>
+Component uses a sql query to filter docuements associated with travel category, SMID/LCN
+  - [X] Documents [jsx](documents.jsx)
+    - [X] View Only (PDF converted)
+    
+***Related Tables***
+> documents
+
+##### <mark>Traveler Types (Nested Custom REACT component)</mark>
+Traveler types is a refinement on policy allowing for a more granular view of information as it pertains to the traveler type. Information related to Policy, Form of Payment, and Processes. Traveler selection is generated from a list of traveler types that are based on account level (GCN) attributes. JS actions trigger updates to queries to populate data in scope with traveler type. All Modules are inherited with data binding alteration per section with exception for fare class rules which is a more complex rule engine. 
+  - [ ] Booking Rules 
+    - [ ] Add
+    - [ ] Edit
+  - [X] Policy [jsx](general_topics.jsx)
+    - [X] Add
+    - [X] Edit
+  - [X] Form of Payment [jsx](form_of_payment.jsx)
+    - [X] Add
+    - [X] Edit
+  - [X] Process [jsx](process.jsx)
+    - [X] Add
+    - [X] Edit
+  
+***Related Tables***
+>fare_class_rules,fare_class_rules_logic,condition_criteria,traveler_types,smid,lcn - All other references are source in previous annotation
+************
+#### Taxi/Limo
+##### <mark>Policy (Custom REACT component)</mark>
+Policy is a custom react component stored in a module with dynamic data input that can be dynamically altered based on travel type, SMID/LCN. Policy is structured with Parent and child topic to assist in a structured topic tree. This module uses a JS action to compile the actions based on the data variables applied. 
+  - [X] Policy Module [jsx](policy.jsx)
+    - [X] Add Parent
+    - [X] Edit Parent
+    - [X] Add Child
+    - [X] Edit Child
+    - [X] traveler_types
+    
+***Related Tables***
+> limopolicy,limopolicy_subtopcs,traveler_types,smid,lcn
+
+##### <mark>Form of Payment (Custom REACT component)</mark>
+FOP is a custom react component stored in a module with dynamic data input that can be dynamically altered based on travel type, SMID/LCN
+  - [X] Form Of Payment [jsx](form_of_payment.jsx)
+    - [X] Add
+    - [X] Edit
+    - [ ] ref_travel_categories
+    - [X] traveler_types
+
+> [!WARNING]
+> Category is not loading, needs debug in config
+    
+***Related Tables***
+> form_of_payment,ref_travel_categories,traveler_types,smid,lcn
+
+##### <mark>Process (Custom REACT component)</mark>
+Process is a simplified repo of account related processes. This table functions as a bridge of existing SP artifacts and future dev to a more robust relational data structure. Current iteration resolves to technology (tool) or OBT, travel category(multi select) and traveler type. 
+  - [X] Process [jsx](process.jsx)
+    - [X] Add
+    - [X] Edit
+    - [X] ref_travel_categories
+    - [X] traveler_types
+    - [X] technology
+    - [X] obt
+
+> [!WARNING]
+> GCN / SMID text fields needs to be removed from form
+    
+***Related Tables***
+> process,ref_technology,obt,ref_travel_categories,traveler_types,smid,lcn
+
+##### <mark>Suppliers (Custom REACT component)</mark>
+Supplier provides the preferred suppliers and associated contacts and any relevant information. Suppliers is a custom component nested in a module that uses dynamic data binding. 
+  - [X] Suppliers [jsx](suppliers.jsx)
+    - [X] Add
+    - [X] Edit
+    - [X] ref_travel_categories (inherited)
+    - [X] Suppliers
+    - [X] Supplier Contacts
+    
+***Related Tables***
+> account_supplier_contacts,account_suppliers,supplier,ref_travel_categories,smid,lcn
+
+##### <mark>Savings/Reason Codes (Custom REACT component)</mark>
+TBD
+
+##### <mark>Documents (Custom REACT component)</mark>
+Component uses a sql query to filter docuements associated with travel category, SMID/LCN
+  - [X] Documents [jsx](documents.jsx)
+    - [X] View Only (PDF converted)
+    
+***Related Tables***
+> documents
+
+##### <mark>Traveler Types (Nested Custom REACT component)</mark>
+Traveler types is a refinement on policy allowing for a more granular view of information as it pertains to the traveler type. Information related to Policy, Form of Payment, and Processes. Traveler selection is generated from a list of traveler types that are based on account level (GCN) attributes. JS actions trigger updates to queries to populate data in scope with traveler type. All Modules are inherited with data binding alteration per section with exception for fare class rules which is a more complex rule engine. 
+  - [ ] Booking Rules 
+    - [ ] Add
+    - [ ] Edit
+  - [X] Policy [jsx](general_topics.jsx)
+    - [X] Add
+    - [X] Edit
+  - [X] Form of Payment [jsx](form_of_payment.jsx)
+    - [X] Add
+    - [X] Edit
+  - [X] Process [jsx](process.jsx)
+    - [X] Add
+    - [X] Edit
+  
+***Related Tables***
+>fare_class_rules,fare_class_rules_logic,condition_criteria,traveler_types,smid,lcn - All other references are source in previous annotation
 ## Phase 2 - Process and Procudures
 TBD
 ## Phase 3 - News/Communication
