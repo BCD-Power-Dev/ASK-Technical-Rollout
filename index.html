@@ -54,7 +54,18 @@
 
     <!-- Interactive Phase Map Engine Area -->
     <main class="max-w-4xl mx-auto px-6 py-12">
-        <h2 class="font-mono text-xs uppercase tracking-wider text-claude-muted mb-8">Interactive Lifecycle Map</h2>
+        <h2 class="font-mono text-xs uppercase tracking-wider text-claude-muted mb-6">Interactive Lifecycle Map</h2>
+        
+        <!-- Minimalist Horizontal Timeline Track Wrapper -->
+        <div class="mb-10 relative px-2">
+            <!-- Connecting Line Background -->
+            <div class="absolute top-[18px] left-8 right-8 h-[1px] bg-claude-border z-0"></div>
+            
+            <!-- Nodes Container -->
+            <div id="horizontal-timeline-nodes" class="relative z-10 flex justify-between items-start overflow-x-auto pb-2 scrollbar-none">
+                <!-- Programmatic nodes inject here -->
+            </div>
+        </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Left Side: Interactive Navigation Tabs -->
@@ -77,12 +88,12 @@
     </footer>
 
     <script>
-        // Core Isolated Phase Data Model
+        // Core Isolated Phase Data Model (Hardcoded explicitly into this file for plug-and-play operation)
         const implementationTimelineData = [
             {
                 id: "phase-0",
                 stepNumber: "00",
-                title: "UI/UX Develoment",
+                title: "UI/UX Development",
                 subtitle: "Tooljet UI/UX implementation",
                 description: "Tooljet development of account level information and knowledgebase for enterprise global user base",
                 deliverables: ["Custom React Components Dev", "Account Policy Components (Air, Car, Rail, Hotel, Ground, Taxi, Ferry)", "Account Summary Component", "Summary Edit Components (SMID/LCN/FOP/PCC-OID)"],
@@ -128,12 +139,44 @@
 
         let activePhaseIndex = 0;
 
+        function updateActivePhase(index) {
+            activePhaseIndex = index;
+            renderInteractiveTimelineMap();
+        }
+
         function renderInteractiveTimelineMap() {
             const selectorContainer = document.getElementById('phase-selector-container');
             const displayPanel = document.getElementById('phase-display-panel');
+            const timelineNodesContainer = document.getElementById('horizontal-timeline-nodes');
             
             selectorContainer.innerHTML = '';
+            timelineNodesContainer.innerHTML = '';
             
+            // 1. Render Top Horizontal Nodes
+            implementationTimelineData.forEach((phase, index) => {
+                const isActive = index === activePhaseIndex;
+                const nodeButton = document.createElement('button');
+                nodeButton.className = "flex flex-col items-center focus:outline-none group text-center cursor-pointer min-w-[70px] sm:min-w-[100px]";
+                nodeButton.onclick = () => updateActivePhase(index);
+                
+                nodeButton.innerHTML = `
+                    <div class="w-9 h-9 rounded-full border flex items-center justify-center font-mono text-xs transition-all duration-200 ${
+                        isActive 
+                        ? 'bg-claude-dark border-claude-dark text-claude-bg scale-105 font-semibold' 
+                        : 'bg-claude-bg border-claude-border text-claude-muted group-hover:border-claude-dark group-hover:text-claude-dark'
+                    }">
+                        ${phase.stepNumber}
+                    </div>
+                    <span class="text-[10px] font-mono tracking-tight mt-2 max-w-[80px] sm:max-w-[110px] truncate ${
+                        isActive ? 'text-claude-dark font-medium' : 'text-claude-dark'
+                    }">
+                        ${phase.title}
+                    </span>
+                `;
+                timelineNodesContainer.appendChild(nodeButton);
+            });
+
+            // 2. Render Left Navigation Tabs
             implementationTimelineData.forEach((phase, index) => {
                 const isActive = index === activePhaseIndex;
                 const buttonElement = document.createElement('button');
@@ -150,14 +193,11 @@
                     </div>
                 `;
                 
-                buttonElement.onclick = () => {
-                    activePhaseIndex = index;
-                    renderInteractiveTimelineMap();
-                };
-                
+                buttonElement.onclick = () => updateActivePhase(index);
                 selectorContainer.appendChild(buttonElement);
             });
 
+            // 3. Render Active Target Content Panel
             const currentSelectedData = implementationTimelineData[activePhaseIndex];
             const computedChecklistHTML = currentSelectedData.deliverables
                 .map(item => `
