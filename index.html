@@ -88,11 +88,13 @@
     </footer>
 
     <script>
-        // Core Isolated Phase Data Model (Hardcoded explicitly into this file for plug-and-play operation)
+        // Core Isolated Phase Data Model
         const implementationTimelineData = [
             {
                 id: "phase-0",
                 stepNumber: "00",
+                date: "Sep-Oct 2026",
+                status: "Staging",
                 title: "UI/UX Development",
                 subtitle: "Tooljet UI/UX implementation",
                 description: "Tooljet development of account level information and knowledgebase for enterprise global user base",
@@ -102,6 +104,8 @@
             {
                 id: "phase-1",
                 stepNumber: "01",
+                date: "Aug 2026",
+                status: "Production",
                 title: "Environment Core Setup",
                 subtitle: "Networking & Topology Mapping",
                 description: "Isolating the data tier environment vectors. Provisioning specialized TLS/SSL configurations across port 5432 and anchoring strict ToolJet environment variables.",
@@ -111,6 +115,8 @@
             {
                 id: "phase-2",
                 stepNumber: "02",
+                date: "Jan 2026",
+                status: "Production",
                 title: "Schema Verification Engine",
                 subtitle: "Relational Migrations (OKB > ASK)",
                 description: "Handling continuous integration schema changes outside of the ToolJet platform. Migrations run via clean schema version workflows safely mapped against dedicated staging branches (DEV/Staging/Production). Enhanced Postgres Table Schema with trigger and function capabilities for ongoing data cleansing, Document library staging for conversion to read only viewership with exception for authorized users to maintain document in SharePoint.",
@@ -120,6 +126,8 @@
             {
                 id: "phase-3",
                 stepNumber: "03",
+                date: "Oct 2026",
+                status: "Dev",
                 title: "Identity Access Layer",
                 subtitle: "Role Mapping & Data Segmentation",
                 description: "Mapping incoming single sign-on security domains directly down into custom workspace views while keeping cross-tenant tooljet parameters locked behind strict PostgreSQL queries.",
@@ -129,6 +137,8 @@
             {
                 id: "phase-4",
                 stepNumber: "04",
+                date: "Dec 2026",
+                status: "Debug",
                 title: "Production Cutover Cut",
                 subtitle: "Phased Production Rollout",
                 description: "The execution phase detailing application workspace synchronization maps, immediate automated health validation protocols, and low-latency failback holding page systems. Restrict global access to Document Library (SP)",
@@ -138,6 +148,17 @@
         ];
 
         let activePhaseIndex = 0;
+
+        // Function helper to choose visual styling for status states
+        function getStatusStyle(status) {
+            switch(status) {
+                case 'Production': return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                case 'Staging': return 'bg-amber-50 text-amber-700 border-amber-200';
+                case 'Dev': return 'bg-blue-50 text-blue-700 border-blue-200';
+                case 'Debug': return 'bg-rose-50 text-rose-700 border-rose-200';
+                default: return 'bg-gray-50 text-gray-700 border-gray-200';
+            }
+        }
 
         function updateActivePhase(index) {
             activePhaseIndex = index;
@@ -156,21 +177,22 @@
             implementationTimelineData.forEach((phase, index) => {
                 const isActive = index === activePhaseIndex;
                 const nodeButton = document.createElement('button');
-                nodeButton.className = "flex flex-col items-center focus:outline-none group text-center cursor-pointer min-w-[70px] sm:min-w-[100px]";
+                nodeButton.className = "flex flex-col items-center focus:outline-none group text-center cursor-pointer min-w-[85px] sm:min-w-[110px]";
                 nodeButton.onclick = () => updateActivePhase(index);
                 
                 nodeButton.innerHTML = `
-                    <div class="w-9 h-9 rounded-full border flex items-center justify-center font-mono text-xs transition-all duration-200 ${
+                    <div class="w-9 h-9 rounded-full border flex flex-col items-center justify-center font-mono text-xs transition-all duration-200 ${
                         isActive 
                         ? 'bg-claude-dark border-claude-dark text-claude-bg scale-105 font-semibold' 
                         : 'bg-claude-bg border-claude-border text-claude-muted group-hover:border-claude-dark group-hover:text-claude-dark'
                     }">
                         ${phase.stepNumber}
                     </div>
-                    <span class="text-[10px] font-mono tracking-tight mt-2 max-w-[80px] sm:max-w-[110px] truncate ${
-                        isActive ? 'text-claude-dark font-medium' : 'text-claude-dark'
-                    }">
-                        ${phase.title}
+                    <span class="text-[10px] font-mono tracking-tight mt-1 text-claude-accent font-medium">
+                        ${phase.date}
+                    </span>
+                    <span class="text-[9px] font-mono px-1 rounded border mt-0.5 max-w-full truncate ${getStatusStyle(phase.status)}">
+                        ${phase.status}
                     </span>
                 `;
                 timelineNodesContainer.appendChild(nodeButton);
@@ -180,16 +202,24 @@
             implementationTimelineData.forEach((phase, index) => {
                 const isActive = index === activePhaseIndex;
                 const buttonElement = document.createElement('button');
-                buttonElement.className = `w-full text-left p-4 transition-all border flex items-center gap-4 ${
+                buttonElement.className = `w-full text-left p-4 transition-all border flex flex-col gap-1.5 ${
                     isActive 
                     ? 'bg-claude-dark text-claude-bg border-claude-dark shadow-sm' 
                     : 'bg-transparent text-claude-dark border-claude-border hover:bg-white'
                 }`;
                 
                 buttonElement.innerHTML = `
-                    <span class="font-mono text-xs tracking-wider opacity-60">${phase.stepNumber}</span>
-                    <div class="truncate">
-                        <div class="text-sm font-medium tracking-tight">${phase.title}</div>
+                    <div class="flex items-center justify-between w-full">
+                        <span class="font-mono text-xs tracking-wider opacity-60">${phase.stepNumber}</span>
+                        <span class="font-mono text-[9px] tracking-tight px-1.5 py-0.5 rounded border ${
+                            isActive ? 'bg-white/10 text-white border-white/20' : getStatusStyle(phase.status)
+                        }">
+                            ${phase.status}
+                        </span>
+                    </div>
+                    <div class="truncate w-full">
+                        <div class="text-sm font-medium tracking-tight truncate">${phase.title}</div>
+                        <div class="text-[11px] font-mono mt-0.5 ${isActive ? 'text-white/60' : 'text-claude-muted'}">${phase.date}</div>
                     </div>
                 `;
                 
@@ -211,7 +241,10 @@
                 <div>
                     <div class="flex items-center justify-between border-b border-claude-border pb-3 mb-4">
                         <span class="font-mono text-xs tracking-widest text-claude-accent uppercase font-medium">// ${currentSelectedData.subtitle}</span>
-                        <span class="font-mono text-xs text-claude-muted opacity-60">PHASE ${currentSelectedData.stepNumber}</span>
+                        <div class="flex items-center gap-2">
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded border ${getStatusStyle(currentSelectedData.status)}">${currentSelectedData.status}</span>
+                            <span class="font-mono text-xs text-claude-muted opacity-60">${currentSelectedData.date}</span>
+                        </div>
                     </div>
                     <h3 class="text-xl font-normal text-claude-dark tracking-tight mb-3">
                         ${currentSelectedData.title}
