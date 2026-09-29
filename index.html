@@ -90,8 +90,40 @@
     <script>
         // Core Isolated Phase Data Model
         const implementationTimelineData = [
-            {
+			{
                 id: "phase-0",
+                stepNumber: "00",
+                date: "Feb 2026",
+                status: "Production",
+                title: "Environment Core Setup",
+                subtitle: "Networking & Topology Mapping",
+                description: "Isolating the data tier environment vectors. Provisioning specialized TLS/SSL configurations across port 5432 and anchoring strict ToolJet environment variables.",
+                deliverables: [
+                    { text: "Provision 'tooljet_admin' Postgres role", status: "Complete" },
+                    { text: "Map explicit network firewall whitelists", status: "Complete" },
+                    { text: "Establish lockbox encryption variables", status: "Complete" }
+                ],
+                docParam: "phase1-architecture"
+            },
+			            {
+                id: "phase-1",
+                stepNumber: "01",
+                date: "Mar 2026",
+                status: "Staging",
+                title: "Schema Verification Engine",
+                subtitle: "Relational Migrations (OKB > ASK)",
+                description: "Handling continuous integration schema changes outside of the ToolJet platform. Migrations run via clean schema version workflows safely mapped against dedicated staging branches (DEV/Staging/Production). Enhanced Postgres Table Schema with trigger and function capabilities for ongoing data cleansing, Document library staging for conversion to read only viewership with exception for authorized users to maintain document in SharePoint.",
+                deliverables: [
+                    { text: "Establish DDL snapshot controls", status: "Complete" },
+                    { text: "Configure PgBouncer thread allocation", status: "Complete" },
+                    { text: "Draft rollback initialization matrix", status: "Under Dev" },
+                    { text: "Document Conversion Storage/Automation in EC2 with R2 cloudflare storage (R2 vs EC2 storage is based on cost savings)", status: "Under Dev" },
+					{ text: "Migrate instance behind VPN", status: "Under Dev" }
+                ],
+                docParam: "phase2-migration"
+            },
+            {
+                id: "phase-2",
                 stepNumber: "02",
                 date: "Sep-Oct 2026",
                 status: "Staging",
@@ -126,42 +158,11 @@
                 ],
                 docParam: "phase0-ui_ux structure"
             },
-            {
-                id: "phase-1",
-                stepNumber: "00",
-                date: "Feb 2026",
-                status: "Production",
-                title: "Environment Core Setup",
-                subtitle: "Networking & Topology Mapping",
-                description: "Isolating the data tier environment vectors. Provisioning specialized TLS/SSL configurations across port 5432 and anchoring strict ToolJet environment variables.",
-                deliverables: [
-                    { text: "Provision 'tooljet_admin' Postgres role", status: "Complete" },
-                    { text: "Map explicit network firewall whitelists", status: "Complete" },
-                    { text: "Establish lockbox encryption variables", status: "Complete" }
-                ],
-                docParam: "phase1-architecture"
-            },
-            {
-                id: "phase-2",
-                stepNumber: "01",
-                date: "Mar 2026",
-                status: "Staging",
-                title: "Schema Verification Engine",
-                subtitle: "Relational Migrations (OKB > ASK)",
-                description: "Handling continuous integration schema changes outside of the ToolJet platform. Migrations run via clean schema version workflows safely mapped against dedicated staging branches (DEV/Staging/Production). Enhanced Postgres Table Schema with trigger and function capabilities for ongoing data cleansing, Document library staging for conversion to read only viewership with exception for authorized users to maintain document in SharePoint.",
-                deliverables: [
-                    { text: "Establish DDL snapshot controls", status: "Complete" },
-                    { text: "Configure PgBouncer thread allocation", status: "Complete" },
-                    { text: "Draft rollback initialization matrix", status: "Under Dev" },
-                    { text: "Document Conversion Storage/Automation in EC2 with R2 cloudflare storage (R2 vs EC2 storage is based on cost savings)", status: "Under Dev" },
-					{ text: "Migrate instance behind VPN", status: "Under Dev" }
-                ],
-                docParam: "phase2-migration"
-            },
+
             {
                 id: "phase-3",
                 stepNumber: "03",
-                date: "Apr 2026",
+                date: "Oct 2026",
                 status: "Dev",
                 title: "Identity Access Layer",
                 subtitle: "Role Mapping & Data Segmentation",
