@@ -8,6 +8,9 @@ All database schema mutations (DDL changes) are handled outside of ToolJet using
 2. **Staging / Testing:** Migrations run automatically via a GitHub Actions CI/CD pipeline on push to the `staging` branch.
 3. **Production Rollout:** Migrations run sequentially *before* the ToolJet frontend updates are released.
 
+### Document Conversion 
+[Document Conversion](document_conversion_pipeline.md)
+
 ```sql
 -- Example Schema Migration (001_init_saas_schema.sql)
 CREATE TABLE tenants (
