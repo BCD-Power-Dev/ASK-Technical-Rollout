@@ -1,3 +1,7 @@
+Scripts are dependent on the run of 
+reconcile_inventory.py
+these refresh the inventory csv that are stored
+
 ## Script-to-Script Dependencies
 
 ```ps1
